@@ -26,7 +26,7 @@ class Memo
     File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
   end
 
-  def destroy
-
+  def destroy(id)
+    File.delete("#{MEMO_DIR}/#{id}.json")
   end
 end
