@@ -15,8 +15,10 @@ class Memo
     JSON.parse(File.read("#{MEMO_DIR}/#{id}.json"), symbolize_names: true)
   end
 
-  def show
-
+  def self.create(title, content)
+    id = SecureRandom.uuid
+    memo = { 'id' => id, 'title' => title, 'content' => content }
+    File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
   end
 
   def update
