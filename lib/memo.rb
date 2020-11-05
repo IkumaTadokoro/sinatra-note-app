@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+require 'json'
+require 'securerandom'
+
 class Memo
 
   MEMO_DIR = './memos'
@@ -6,8 +11,8 @@ class Memo
     Dir.glob("#{MEMO_DIR}/*").map { |file| JSON.parse(File.read(file), symbolize_names: true) }
   end
 
-  def self.create
-
+  def self.show(id)
+    JSON.parse(File.read("#{MEMO_DIR}/#{id}.json"), symbolize_names: true)
   end
 
   def show
