@@ -9,7 +9,10 @@
   <title>メモアプリ</title>
 </head>
 <body>
-  <%= @memos.map { |memo| "<a href=memos/#{memo[:id]}>#{memo[:title]}</a>" }.join("<br>") %>
-  <button type="submit" onclick="location.href='/memos/new'">追加</button>
+  <h1 class="title">メモアプリ</h1>
+  <ul>
+    <%= @memos.map { |memo| "<li><a href=memos/#{memo[:id]}>#{memo[:title]}</a></li>" }.join("<br>") %>
+  </ul>
+  <button onclick="location.href='/memos/new'">追加</button>
 </body>
 </html>
