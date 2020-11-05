@@ -1,6 +1,9 @@
 class Memo
-  def self.index
 
+  MEMO_DIR = './memos'
+
+  def self.index
+    Dir.glob("#{MEMO_DIR}/*").map { |file| JSON.parse(File.read(file), symbolize_names: true) }
   end
 
   def self.create
@@ -19,4 +22,3 @@ class Memo
 
   end
 end
-
