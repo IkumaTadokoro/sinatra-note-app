@@ -15,6 +15,7 @@ class Memo
   end
 
   def self.create(title:, content:)
+    Dir.mkdir(MEMO_DIR) unless Dir.exist?(MEMO_DIR)
     id = SecureRandom.uuid
     memo = { id: id, title: title, content: content }
     File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
