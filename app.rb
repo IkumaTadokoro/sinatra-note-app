@@ -5,11 +5,13 @@ require 'sinatra/reloader'
 require_relative './lib/memo'
 
 get '/memos' do
+  @title = 'Top'
   @memos = Memo.index
   erb :top
 end
 
 get '/memos/new' do
+  @title = 'New'
   erb :new
 end
 
@@ -19,11 +21,13 @@ post '/memos/new' do
 end
 
 get '/memos/:id' do
+  @title = 'Show'
   @memo = Memo.show(id: params[:id])
   erb :show
 end
 
 get '/memos/:id/edit' do
+  @title = 'Edit'
   @memo = Memo.show(id: params[:id])
   erb :edit
 end
