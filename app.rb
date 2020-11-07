@@ -14,26 +14,26 @@ get '/memos/new' do
 end
 
 post '/memos/new' do
-  Memo.create(params[:title], params[:content])
+  Memo.create(title: params[:title], content: params[:content])
   redirect '/memos'
 end
 
 get '/memos/:id' do
-  @memo = Memo.show(params[:id])
+  @memo = Memo.show(id: params[:id])
   erb :show
 end
 
 get '/memos/:id/edit' do
-  @memo = Memo.show(params[:id])
+  @memo = Memo.show(id: params[:id])
   erb :edit
 end
 
 patch '/memos/:id' do
-  Memo.new.update(params[:id], params[:title], params[:content])
+  Memo.new.update(id: params[:id], title: params[:title], content: params[:content])
   redirect '/memos'
 end
 
 delete '/memos/:id' do
-  Memo.new.destroy(params[:id])
+  Memo.new.destroy(id: params[:id])
   redirect '/memos'
 end

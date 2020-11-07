@@ -11,22 +11,22 @@ class Memo
     Dir.glob("#{MEMO_DIR}/*").map { |file| JSON.parse(File.read(file), symbolize_names: true) }
   end
 
-  def self.show(id)
+  def self.show(id:)
     JSON.parse(File.read("#{MEMO_DIR}/#{id}.json"), symbolize_names: true)
   end
 
-  def self.create(title, content)
+  def self.create(title:, content:)
     id = SecureRandom.uuid
     memo = { 'id' => id, 'title' => title, 'content' => content }
     File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
   end
 
-  def update(id, title, content)
+  def update(id:, title:, content:)
     memo = { 'id' => id, 'title' => title, 'content' => content }
     File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
   end
 
-  def destroy(id)
+  def destroy(id:)
     File.delete("#{MEMO_DIR}/#{id}.json")
   end
 end
