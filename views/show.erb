@@ -1,19 +1,18 @@
-  <div class="contents">
-    <div class="form">
-      <div class="form-item">
-        <p class="form-item-label">タイトル</p>
-        <input type="text" name="title" class="disabled form-item-input" value="<%= @memo[:title] %>" disabled>
-      </div>
-      <div class="form-item">
-        <p class="form-item-label">内容</p>
-        <textarea name="content" class="disabled form-item-textarea" disabled><%= @memo[:content] %></textarea>
-      </div>
-      <div class="form-item">
-        <button type="submit" class="btn btn-edit" onclick="location.href='/memos/<%= @memo[:id] %>/edit'">編集</button>
-        <form method="post" action="/memos/<%= @memo[:id] %>">
-          <button type="submit" class="btn btn-delete" name="_method" value="DELETE">削除</button>
-        </form>
-      </div>
+<div class="contents">
+  <div class="form">
+    <div class="form-item">
+      <p class="form-item-label">タイトル</p>
+      <input type="text" name="title" class="disabled form-item-input" value="<%= @memo[:title] %>" disabled>
+    </div>
+    <div class="form-item">
+      <p class="form-item-label">内容</p>
+      <textarea name="content" class="disabled form-item-textarea" disabled><%= @memo[:content] %></textarea>
+    </div>
+    <div class="form-item">
+      <button type="submit" class="btn btn-edit" onclick="location.href='/memos/<%= @memo[:id] %>/edit'">編集</button>
+      <form method="post" action="/memos/<%= @memo[:id] %>">
+        <button type="submit" class="btn btn-delete" name="_method" value="DELETE">削除</button>
       </form>
     </div>
   </div>
+</div>

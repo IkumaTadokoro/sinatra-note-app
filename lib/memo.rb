@@ -4,7 +4,6 @@ require 'json'
 require 'securerandom'
 
 class Memo
-
   MEMO_DIR = './memos'
 
   def self.index
