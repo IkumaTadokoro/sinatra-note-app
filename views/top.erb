@@ -4,15 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+  <link rel="stylesheet" type="text/css" href="/style/style.css">
   <title>メモアプリ</title>
 </head>
 <body>
-  <h1 class="title">メモアプリ</h1>
-  <ul>
-    <%= @memos.map { |memo| "<li><a href=memos/#{memo[:id]}>#{memo[:title]}</a></li>" }.join("<br>") %>
-  </ul>
-  <button onclick="location.href='/memos/new'">追加</button>
+<div class="container">
+  <div class="header">
+    <h1 class="title">メモアプリ</h1>
+  </div>
+  <div class="contents">
+    <%= @memos.map { |memo| "<a class=\"content\" href=memos/#{memo[:id]}>#{memo[:title]}</a>" }.join %>
+  </div>
+  <div class="footer">
+    <button class="btn btn-add" onclick="location.href='/memos/new'">追加</button>
+  </div>
+</div>
 </body>
 </html>
