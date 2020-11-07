@@ -4,23 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
-  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/style/style.css">
+  <title>新規作成</title>
 </head>
 <body>
-  <form method="post" action="/memos/new">
-    <div class="form-item">
-      <input type="text" name="title" class="form-item__text-input" value="タイトル">
+<div class="container">
+  <div class="header">
+    <h1 class="title">メモアプリ</h1>
+  </div>
+  <div class="contents">
+    <div class="form">
+      <form method="post" action="/memos/new">
+        <div class="form-item">
+          <p class="form-item-label">タイトル</p>
+          <input type="text" name="title" class="form-item-input" placeholder="タイトル">
+        </div>
+        <div class="form-item">
+          <p class="form-item-label">内容</p>
+          <textarea name="content" class="form-item-textarea" placeholder="内容"></textarea>
+        </div>
+        <div class="form-item">
+          <button class="btn btn-save" type="submit">保存</button>
+        </div>
+      </form>
     </div>
-    <div class="form-item">
-      <textarea name="content" class="form-item__textarea"></textarea>
-    </div>
-    <div class="form-item">
-      <div class="form-item__actions">
-        <input type="submit" value="保存" class="form-item__action is-submit">
-      </div>
-    </div>
-  </form>
+  </div>
+</div>
 </body>
 </html>
