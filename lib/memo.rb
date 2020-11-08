@@ -3,7 +3,15 @@
 require 'pg'
 
 class Memo
-  @@connection = PG.connect({ host: 'localhost', user: 'sinatra', password: 'sinatra', dbname: 'sinatra' })
+  @@connection = PG.connect(
+    {
+      host: ENV['PG_HOST'],
+      port: ENV['PG_PORT'],
+      user: ENV['PG_USER'],
+      password: ENV['PGPASSWORD'],
+      dbname: ENV['PGDATABASE']
+    }
+  )
 
   attr_reader :id, :title, :content
 
