@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'securerandom'
 require 'pg'
 
 class Memo
-  MEMO_DIR = './memos'
   @@connection = PG.connect({ host: 'localhost', user: 'sinatra', password: 'sinatra', dbname: 'sinatra' })
 
   attr_reader :id, :title, :content
