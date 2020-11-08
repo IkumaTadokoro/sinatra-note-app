@@ -23,7 +23,7 @@ class Memo
   end
 
   def self.show(id:)
-    json_data = JSON.parse(File.read("#{MEMO_DIR}/#{id}.json"), symbolize_names: true)
+    json_data = @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first.transform_keys(&:to_sym)
     new(id: json_data[:id], title: json_data[:title], content: json_data[:content])
   end
 
