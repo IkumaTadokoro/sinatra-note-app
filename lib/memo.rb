@@ -8,7 +8,6 @@ class Memo
 
   def self.index
     Dir.glob("#{MEMO_DIR}/*")
-       .sort_by { |file| File.mtime(file) }
        .map { |file| JSON.parse(File.read(file), symbolize_names: true) }
   end
 
