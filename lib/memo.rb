@@ -32,8 +32,7 @@ class Memo
   end
 
   def update(title:, content:)
-    memo = { id: @id, title: title, content: content }
-    File.open("#{MEMO_DIR}/#{@id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
+    @@connection.exec('UPDATE memo SET title = $1, content = $2 WHERE id = $3', [title, content, id])
   end
 
   def destroy
