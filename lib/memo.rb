@@ -35,7 +35,7 @@ class Memo
     @@connection.exec('UPDATE memo SET title = $1, content = $2 WHERE id = $3', [title, content, id])
   end
 
-  def destroy
-    File.delete("#{MEMO_DIR}/#{@id}.json")
+  def destroy(id:)
+    @@connection.exec('DELETE FROM memo WHERE id = $1', [id])
   end
 end
