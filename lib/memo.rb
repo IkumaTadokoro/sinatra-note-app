@@ -14,7 +14,7 @@ class Memo
   end
 
   def self.index
-    @@connection.exec('SELECT * FROM memo ORDER BY updated_at')
+    @@connection.exec('SELECT * FROM memo')
                 .map { |result| result.transform_keys(&:to_sym) }
                 .map { |json_data| new(id: json_data[:id], title: json_data[:title], content: json_data[:content]) }
   end
