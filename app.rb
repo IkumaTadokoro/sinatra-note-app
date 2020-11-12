@@ -39,7 +39,7 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  Memo.new(id: params[:id], title: params[:title], content: params[:content]).update(id: params[:id], title: params[:title], content: params[:content])
+  Memo.new(id: params[:id], title: params[:title], content: params[:content]).update
   redirect '/memos'
 end
 
