@@ -44,6 +44,6 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  Memo.new(id: params[:id], title: params[:title], content: params[:content]).destroy(id: params[:id])
+  Memo.new(id: params[:id], title: params[:title], content: params[:content]).destroy
   redirect '/memos'
 end
