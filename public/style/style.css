@@ -45,6 +45,7 @@
 
 .btn-add {
     float: right;
+    text-decoration: none;
 }
 
 .btn-save {
