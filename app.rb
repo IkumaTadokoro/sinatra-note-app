@@ -33,11 +33,11 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  Memo.new.update(id: params[:id], title: params[:title], content: params[:content])
+  Memo.new(id: params[:id], title: params[:title], content: params[:content]).update(id: params[:id], title: params[:title], content: params[:content])
   redirect '/memos'
 end
 
 delete '/memos/:id' do
-  Memo.new.destroy(id: params[:id])
+  Memo.new(id: params[:id], title: params[:title], content: params[:content]).destroy(id: params[:id])
   redirect '/memos'
 end
