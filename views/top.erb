@@ -1,6 +1,6 @@
 <div class="contents">
   <% @memos.each do |memo| %>
-    <a class="content" href="memos/<%= memo[:id] %>"><%= memo[:title] %></a>
+    <a class="content" href="memos/<%= memo[:id] %>"><%= h memo[:title] %></a>
   <% end %>
 </div>
 <div class="footer">

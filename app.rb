@@ -4,6 +4,12 @@ require 'sinatra'
 require 'sinatra/reloader'
 require_relative './lib/memo'
 
+helpers do
+  def h(text)
+    Rack::Utils.escape_html(text)
+  end
+end
+
 get '/memos' do
   @title = 'Top'
   @memos = Memo.index
