@@ -1,13 +1,13 @@
 <div class="contents">
   <div class="form">
-    <form method="post" action="/memos/<%= @memo[:id] %>">
+    <form method="post" action="/memos/<%= @memo.id %>">
       <div class="form-item">
         <p class="form-item-label">タイトル</p>
-        <input type="text" name="title" class="form-item-input" value="<%= h @memo[:title] %>" tabindex="0">
+        <input type="text" name="title" class="form-item-input" value="<%= h @memo.title %>" tabindex="0">
       </div>
       <div class="form-item">
         <p class="form-item-label">内容</p>
-        <textarea name="content" class="form-item-textarea" tabindex="0"><%= h @memo[:content] %></textarea>
+        <textarea name="content" class="form-item-textarea" tabindex="0"><%= h @memo.content %></textarea>
       </div>
       <div class="form-item">
         <button class="btn btn-save" type="submit" name="_method" value="PATCH">変更</button>

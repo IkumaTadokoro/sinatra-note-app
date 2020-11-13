@@ -6,6 +6,8 @@ require 'securerandom'
 class Memo
   MEMO_DIR = './memos'
 
+  attr_reader :id, :title, :content
+
   def initialize(id:, title:, content:)
     @id = id
     @title = title
