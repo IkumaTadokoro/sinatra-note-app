@@ -18,7 +18,8 @@ class Memo
   end
 
   def self.show(id:)
-    JSON.parse(File.read("#{MEMO_DIR}/#{id}.json"), symbolize_names: true)
+    json_data = JSON.parse(File.read("#{MEMO_DIR}/#{id}.json"), symbolize_names: true)
+    new(id: json_data[:id], title: json_data[:title], content: json_data[:content])
   end
 
   def self.create(title:, content:)
