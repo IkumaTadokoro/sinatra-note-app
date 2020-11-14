@@ -15,6 +15,7 @@ class Memo
   def self.index
     Dir.glob("#{MEMO_DIR}/*")
        .map { |file| JSON.parse(File.read(file), symbolize_names: true) }
+       .map { |json_data| new(id: json_data[:id], title: json_data[:title], content: json_data[:content]) }
   end
 
   def self.show(id:)
