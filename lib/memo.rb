@@ -32,8 +32,8 @@ class Memo
     File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
   end
 
-  def update
-    memo = { id: @id, title: @title, content: @content }
+  def update(title:, content:)
+    memo = { id: @id, title: title, content: content }
     File.open("#{MEMO_DIR}/#{@id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
   end
 
