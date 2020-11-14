@@ -30,6 +30,7 @@ class Memo
     id = SecureRandom.uuid
     memo = { id: id, title: title, content: content }
     File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
+    new(id: id, title: title, content: content)
   end
 
   def update(title:, content:)
