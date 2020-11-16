@@ -27,8 +27,8 @@ class Memo
   end
 
   def self.show(id:)
-    result = @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first.transform_keys(&:to_sym)
-    new(id: result[:id], title: result[:title], content: result[:content])
+    result = @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first
+    new(id: result['id'], title: result['title'], content: result['content'])
   end
 
   def self.create(title:, content:)
