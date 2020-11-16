@@ -27,8 +27,8 @@ class Memo
   end
 
   def self.show(id:)
-    json_data = @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first.transform_keys(&:to_sym)
-    new(id: json_data[:id], title: json_data[:title], content: json_data[:content])
+    result = @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first.transform_keys(&:to_sym)
+    new(id: result[:id], title: result[:title], content: result[:content])
   end
 
   def self.create(title:, content:)
