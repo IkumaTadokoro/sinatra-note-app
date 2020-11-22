@@ -3,15 +3,6 @@
 require 'pg'
 
 class Memo
-  @@connection = PG.connect(
-    {
-      host: ENV['PG_HOST'],
-      port: ENV['PG_PORT'],
-      user: ENV['PG_USER'],
-      password: ENV['PGPASSWORD'],
-      dbname: ENV['PGDATABASE']
-    }
-  )
 
   attr_reader :id, :title, :content
 
@@ -21,25 +12,38 @@ class Memo
     @content = content
   end
 
+  def self.exec_sql(&block)
+    @@connection = PG.connect({
+                                dbname: ENV['PGDATABASE'],
+                                host: ENV['PG_HOST'],
+                                password: ENV['PGPASSWORD'],
+                                port: ENV['PG_PORT'],
+                                user: ENV['PG_USER']
+                              })
+    result = yield block
+    @@connection.close
+    result
+  end
+
   def self.index
-    @@connection.exec('SELECT * FROM memo')
-                .map { |result| new(id: result['id'], title: result['title'], content: result['content']) }
+    results = exec_sql { @@connection.exec('SELECT * FROM memo') }
+    results.map { |result| new(id: result['id'], title: result['title'], content: result['content']) }
   end
 
   def self.show(id:)
-    result = @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first
+    result = exec_sql { @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first }
     new(id: result['id'], title: result['title'], content: result['content'])
   end
 
   def self.create(title:, content:)
-    @@connection.exec('INSERT INTO memo (title, content) VALUES ($1, $2)', [title, content])
+    exec_sql { @@connection.exec('INSERT INTO memo (title, content) VALUES ($1, $2)', [title, content]) }
   end
 
   def update(title:, content:)
-    @@connection.exec('UPDATE memo SET title = $1, content = $2 WHERE id = $3', [title, content, @id])
+    Memo.exec_sql { @@connection.exec('UPDATE memo SET title = $1, content = $2 WHERE id = $3', [title, content, @id]) }
   end
 
   def destroy
-    @@connection.exec('DELETE FROM memo WHERE id = $1', [@id])
+    Memo.exec_sql { @@connection.exec('DELETE FROM memo WHERE id = $1', [@id]) }
   end
 end
