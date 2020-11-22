@@ -31,19 +31,19 @@ class Memo
   end
 
   def self.show(id:)
-    result = exec_sql { @@connection.exec('SELECT * FROM memo WHERE id = $1', [id]).first }
+    result = exec_sql { @@connection.exec_params('SELECT * FROM memo WHERE id = $1', [id]).first }
     new(id: result['id'], title: result['title'], content: result['content'])
   end
 
   def self.create(title:, content:)
-    exec_sql { @@connection.exec('INSERT INTO memo (title, content) VALUES ($1, $2)', [title, content]) }
+    exec_sql { @@connection.exec_params('INSERT INTO memo (title, content) VALUES ($1, $2)', [title, content]) }
   end
 
   def update(title:, content:)
-    Memo.exec_sql { @@connection.exec('UPDATE memo SET title = $1, content = $2 WHERE id = $3', [title, content, @id]) }
+    Memo.exec_sql { @@connection.exec_params('UPDATE memo SET title = $1, content = $2 WHERE id = $3', [title, content, @id]) }
   end
 
   def destroy
-    Memo.exec_sql { @@connection.exec('DELETE FROM memo WHERE id = $1', [@id]) }
+    Memo.exec_sql { @@connection.exec_params('DELETE FROM memo WHERE id = $1', [@id]) }
   end
 end
