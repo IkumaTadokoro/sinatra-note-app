@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'securerandom'
+require 'pg'
 
 class Memo
-  MEMO_DIR = './memos'
 
   attr_reader :id, :title, :content
 
@@ -14,31 +12,38 @@ class Memo
     @content = content
   end
 
+  def self.exec_sql(&block)
+    @@connection = PG.connect({
+                                dbname: ENV['PGDATABASE'],
+                                host: ENV['PG_HOST'],
+                                password: ENV['PGPASSWORD'],
+                                port: ENV['PG_PORT'],
+                                user: ENV['PG_USER']
+                              })
+    result = yield block
+    @@connection.close
+    result
+  end
+
   def self.index
-    Dir.glob("#{MEMO_DIR}/*")
-       .map { |file| JSON.parse(File.read(file), symbolize_names: true) }
-       .map { |json_data| new(id: json_data[:id], title: json_data[:title], content: json_data[:content]) }
+    results = exec_sql { @@connection.exec('SELECT * FROM memo') }
+    results.map { |result| new(id: result['id'], title: result['title'], content: result['content']) }
   end
 
   def self.show(id:)
-    json_data = JSON.parse(File.read("#{MEMO_DIR}/#{id}.json"), symbolize_names: true)
-    new(id: json_data[:id], title: json_data[:title], content: json_data[:content])
+    result = exec_sql { @@connection.exec_params('SELECT * FROM memo WHERE id = $1', [id]).first }
+    new(id: result['id'], title: result['title'], content: result['content'])
   end
 
   def self.create(title:, content:)
-    Dir.mkdir(MEMO_DIR) unless Dir.exist?(MEMO_DIR)
-    id = SecureRandom.uuid
-    memo = { id: id, title: title, content: content }
-    File.open("#{MEMO_DIR}/#{id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
-    new(id: id, title: title, content: content)
+    exec_sql { @@connection.exec_params('INSERT INTO memo (title, content) VALUES ($1, $2)', [title, content]) }
   end
 
   def update(title:, content:)
-    memo = { id: @id, title: title, content: content }
-    File.open("#{MEMO_DIR}/#{@id}.json", 'w') { |file| file.puts(JSON.pretty_generate(memo)) }
+    Memo.exec_sql { @@connection.exec_params('UPDATE memo SET title = $1, content = $2 WHERE id = $3', [title, content, @id]) }
   end
 
   def destroy
-    File.delete("#{MEMO_DIR}/#{@id}.json")
+    Memo.exec_sql { @@connection.exec_params('DELETE FROM memo WHERE id = $1', [@id]) }
   end
 end
